@@ -1,4 +1,5 @@
 from datetime import datetime
+from werkzeug.security import check_password_hash
 from sqlalchemy import Column, Integer, DateTime, String, ForeignKey
 from sqlalchemy.orm import relationship
 from src.database import db
@@ -12,6 +13,9 @@ class User(db.Model):
     password = Column(String, nullable=False)
 
     urls = relationship("URL", back_populates="user")
+
+    def check_password(self, password):
+        return check_password_hash(self.password, password)
 
 
 class URL(db.Model):
