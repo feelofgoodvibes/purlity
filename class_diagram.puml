@@ -1,0 +1,26 @@
+@startuml class_diagram
+
+object USER {
+  **id : int**
+  name : str
+  password : str
+}
+
+object URL {
+  **id : int**
+  user : USER
+  url : str
+  short_url : str
+  created_date : DateTime
+}
+
+object VISIT {
+  **id : int**
+  url : URL
+  date : DateTime
+}
+
+USER "1" ---> "0..m" URL
+VISIT "1" ---> "0..m" URL
+
+@enduml
