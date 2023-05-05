@@ -22,7 +22,7 @@ jobs:
           pip install -r requirements.txt
       - name: Test with pytest
         run: |
-          python -m pytest
+          coverage run -m pytest
           
       - name: Publish to coveralls.io
         uses: coverallsapp/github-action@v2
