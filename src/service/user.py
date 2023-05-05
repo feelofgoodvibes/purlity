@@ -3,6 +3,7 @@ from src.models import User
 from src.database import SQLAlchemy
 from typing import Union
 
+
 class UserService():
     def __init__(self, db: SQLAlchemy):
         self.db = db
@@ -10,7 +11,7 @@ class UserService():
     def get_all_users(self):
         return User.query.all()
 
-    def get_user(self, user_id: int) -> Union[User, None]:
+    def get_user(self, user_id: int) -> User:
         user = User.query.filter(User.id==user_id).first()
 
         if user is None:
@@ -24,13 +25,13 @@ class UserService():
 
         return new_user
 
-    def update_user(self, user_id: int, password: str) -> Union[User, None]:
+    def update_user(self, user_id: int, password: str) -> User:
         user = self.get_user(user_id)
         user.password = generate_password_hash(password)
 
         return user
 
-    def delete_user(self, user_id: int) -> Union[User, None]:
+    def delete_user(self, user_id: int) -> User:
         user = self.get_user(user_id)
         self.db.session.delete(user)
 
