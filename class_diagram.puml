@@ -7,10 +7,9 @@ object USER {
 }
 
 object URL {
-  **id : int**
+  **short_url : str**
   user : USER
   url : str
-  short_url : str
   created_date : DateTime
 }
 

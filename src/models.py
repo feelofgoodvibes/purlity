@@ -21,21 +21,22 @@ class User(db.Model):
 class URL(db.Model):
     __tablename__ = "url"
 
-    id = Column(Integer, primary_key=True, autoincrement=True)
+    short_url = Column(String, primary_key=True)
     user_id = Column(Integer, ForeignKey("user.id"), nullable=True)
     url = Column(String, nullable=False)
-    short_url = Column(String, nullable=False)
     created_date = Column(DateTime, default=datetime.now)
 
     user = relationship("User", back_populates="urls")
-    visits = relationship("Visit", back_populates="url")
+    
+    # cascade="all,delete" to delete all visits of URL when URL is deleted
+    visits = relationship("Visit", back_populates="url", cascade="all, delete")
 
 
 class Visit(db.Model):
     __tablename__ = "visit"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    url_id = Column(Integer, ForeignKey("url.id"))
+    short_url = Column(String, ForeignKey("url.short_url"))
     date = Column(DateTime, default=datetime.now)
 
     url = relationship("URL", back_populates="visits")

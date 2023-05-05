@@ -4,6 +4,8 @@ import pytest
 from src.app import create_app, db
 from src.models import User, URL, Visit
 from src.service.user import UserService
+from src.service.url import URLService
+
 
 @pytest.fixture()
 def dummy_db():
@@ -28,26 +30,26 @@ def dummy_db():
         db.session.commit()
 
         # Populating Visit table
-        db.session.add(Visit(url_id=1, date=datetime(2023, 5, 1, 16, 30, 00)))
-        db.session.add(Visit(url_id=1, date=datetime(2023, 5, 1, 22, 12, 00)))
-        db.session.add(Visit(url_id=1, date=datetime(2023, 5, 2, 3, 24, 00)))
-        db.session.add(Visit(url_id=1, date=datetime(2023, 5, 3, 11, 25, 00)))
+        db.session.add(Visit(short_url="exMpL", date=datetime(2023, 5, 1, 16, 30, 00)))
+        db.session.add(Visit(short_url="exMpL", date=datetime(2023, 5, 1, 22, 12, 00)))
+        db.session.add(Visit(short_url="exMpL", date=datetime(2023, 5, 2, 3, 24, 00)))
+        db.session.add(Visit(short_url="exMpL", date=datetime(2023, 5, 3, 11, 25, 00)))
 
-        db.session.add(Visit(url_id=2, date=datetime(2023, 5, 2, 10, 00, 00)))
-        db.session.add(Visit(url_id=2, date=datetime(2023, 5, 2, 12, 00, 00)))
-        db.session.add(Visit(url_id=2, date=datetime(2023, 5, 3, 13, 00, 00)))
+        db.session.add(Visit(short_url="YouTb", date=datetime(2023, 5, 2, 10, 00, 00)))
+        db.session.add(Visit(short_url="YouTb", date=datetime(2023, 5, 2, 12, 00, 00)))
+        db.session.add(Visit(short_url="YouTb", date=datetime(2023, 5, 3, 13, 00, 00)))
 
-        db.session.add(Visit(url_id=3, date=datetime(2023, 5, 3, 1, 00, 00)))
-        db.session.add(Visit(url_id=3, date=datetime(2023, 5, 3, 21, 00, 00)))
+        db.session.add(Visit(short_url="gitHB", date=datetime(2023, 5, 3, 1, 00, 00)))
+        db.session.add(Visit(short_url="gitHB", date=datetime(2023, 5, 3, 21, 00, 00)))
 
-        db.session.add(Visit(url_id=4, date=datetime(2023, 5, 3, 13, 25, 00)))
-        db.session.add(Visit(url_id=4, date=datetime(2023, 5, 4, 8, 00, 00)))
+        db.session.add(Visit(short_url="tStin", date=datetime(2023, 5, 3, 13, 25, 00)))
+        db.session.add(Visit(short_url="tStin", date=datetime(2023, 5, 4, 8, 00, 00)))
 
-        db.session.add(Visit(url_id=5, date=datetime(2023, 5, 5, 10, 00, 00)))
-        db.session.add(Visit(url_id=5, date=datetime(2023, 5, 5, 11, 00, 00)))
-        db.session.add(Visit(url_id=5, date=datetime(2023, 5, 5, 16, 00, 00)))
-        db.session.add(Visit(url_id=5, date=datetime(2023, 5, 6, 8, 00, 00)))
-        db.session.add(Visit(url_id=5, date=datetime(2023, 5, 6, 15, 00, 00)))
+        db.session.add(Visit(short_url="pyThN", date=datetime(2023, 5, 5, 10, 00, 00)))
+        db.session.add(Visit(short_url="pyThN", date=datetime(2023, 5, 5, 11, 00, 00)))
+        db.session.add(Visit(short_url="pyThN", date=datetime(2023, 5, 5, 16, 00, 00)))
+        db.session.add(Visit(short_url="pyThN", date=datetime(2023, 5, 6, 8, 00, 00)))
+        db.session.add(Visit(short_url="pyThN", date=datetime(2023, 5, 6, 15, 00, 00)))
 
         db.session.commit()
 
@@ -58,4 +60,9 @@ def dummy_db():
 @pytest.fixture()
 def user_service(dummy_db) -> UserService:
     service = UserService(dummy_db)
+    yield service
+
+@pytest.fixture()
+def url_service(dummy_db) -> URLService:
+    service = URLService(dummy_db)
     yield service
