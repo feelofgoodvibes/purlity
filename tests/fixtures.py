@@ -5,6 +5,7 @@ from src.app import create_app, db
 from src.models import User, URL, Visit
 from src.service.user import UserService
 from src.service.url import URLService
+from src.service.visit import VisitService
 
 
 @pytest.fixture()
@@ -57,12 +58,20 @@ def dummy_db():
 
         db.drop_all()   # Dropping all tables after object used
 
+
 @pytest.fixture()
 def user_service(dummy_db) -> UserService:
     service = UserService(dummy_db)
     yield service
 
+
 @pytest.fixture()
 def url_service(dummy_db) -> URLService:
     service = URLService(dummy_db)
+    yield service
+
+
+@pytest.fixture()
+def visit_service(dummy_db) -> VisitService:
+    service = VisitService(dummy_db)
     yield service
