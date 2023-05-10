@@ -1,5 +1,6 @@
 from random import choice
 from string import ascii_letters
+from typing import Optional
 
 from src.models import URL
 from src.database import SQLAlchemy
@@ -27,7 +28,7 @@ class URLService():
 
         return short_url
 
-    def get_all_urls(self, filters: URLFilters = None):
+    def get_all_urls(self, filters: Optional[URLFilters] = None):
         query = URL.query
 
         if filters is not None:    
