@@ -1,9 +1,10 @@
 from random import choice
-from src.models import URL, User
+from string import ascii_letters
+
+from src.models import URL
 from src.database import SQLAlchemy
 from src.service.user import UserService
-from typing import Union
-from string import ascii_letters
+from src.schemas import URLFilters
 
 
 class URLService():
@@ -26,8 +27,26 @@ class URLService():
 
         return short_url
 
-    def get_all_urls(self):
-        return URL.query.all()
+    def get_all_urls(self, filters: URLFilters = None):
+        query = URL.query
+
+        if filters is not None:    
+            if filters.user:
+                query = query.filter(URL.user_id == filters.user)
+
+            if filters.date_from:
+                query = query.filter(URL.created_date >= filters.date_from)
+            
+            if filters.date_to:
+                query = query.filter(URL.created_date <= filters.date_to)
+            
+            if filters.offset:
+                query = query.offset(filters.offset)
+
+            if filters.limit:
+                query = query.limit(filters.limit)
+
+        return query.all()
 
     def get_url(self, short_url: str) -> URL:
         url = URL.query.filter(URL.short_url==short_url).first()
@@ -50,4 +69,3 @@ class URLService():
         self.db.session.delete(url)
 
         return url
-

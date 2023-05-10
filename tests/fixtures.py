@@ -25,9 +25,9 @@ def dummy_db():
         # Populating URL table
         db.session.add(URL(user_id=1, url="http://example.com", short_url="exMpL", created_date=datetime(2023, 5, 1, 16, 0, 0)))
         db.session.add(URL(user_id=1, url="http://youtube.com", short_url="YouTb", created_date=datetime(2023, 5, 2, 12, 10, 0)))
-        db.session.add(URL(user_id=2, url="http://github.com", short_url="gitHB", created_date=datetime(2023, 5, 2, 22, 0, 0)))
-        db.session.add(URL(user_id=3, url="http://testing.com", short_url="tStin", created_date=datetime(2023, 5, 3, 12, 0, 0)))
-        db.session.add(URL(user_id=3, url="http://python.org", short_url="pyThN", created_date=datetime(2023, 5, 5, 9, 0, 0)))
+        db.session.add(URL(user_id=2, url="http://github.com", short_url="gitHB",  created_date=datetime(2023, 5, 2, 22, 0, 0)))
+        db.session.add(URL(user_id=3, url="http://testing.com", short_url="tStin", created_date=datetime(2023, 5, 3, 9, 0, 0)))
+        db.session.add(URL(user_id=3, url="http://python.org", short_url="pyThN",  created_date=datetime(2023, 5, 5, 12, 0, 0)))
         db.session.commit()
 
         # Populating Visit table

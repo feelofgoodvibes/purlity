@@ -1,7 +1,9 @@
 import pytest
 from tests.fixtures import dummy_db, url_service
+
 from src.models import User, URL, Visit
 from src.service.url import URLService
+from src.schemas import URLFilters
 
 
 def test_url_get(url_service: URLService):
@@ -14,7 +16,29 @@ def test_url_get(url_service: URLService):
 
 
 def test_get_all_urls(url_service: URLService):
-    assert len(url_service.get_all_urls()) == 5
+    all_urls = url_service.get_all_urls()
+    assert len(all_urls) == 5
+
+    test_filters = [
+        URLFilters.parse_obj({ "user": "1" }),
+        URLFilters.parse_obj({ "date_from": "2023-05-02 13:00" }),
+        URLFilters.parse_obj({ "date_from": "2023-05-02 12:00", "date_to": "2023-05-03 23:00" }),
+        URLFilters.parse_obj({ "limit": 2, "offset": 1 }),
+        URLFilters.parse_obj({ "user": 2, "limit": 1 }),
+        URLFilters.parse_obj({ "user": 1, "offset": 1 }),
+    ]
+
+    expected_output = [
+        [all_urls[0], all_urls[1]],
+        [all_urls[2], all_urls[3], all_urls[4]],
+        [all_urls[1], all_urls[2], all_urls[3]],
+        [all_urls[1], all_urls[2]],
+        [all_urls[2]],
+        [all_urls[1]]
+    ]
+
+    for i, filters in enumerate(test_filters):
+        assert url_service.get_all_urls(filters) == expected_output[i]
 
 
 def test_create_url(url_service: URLService, monkeypatch):
