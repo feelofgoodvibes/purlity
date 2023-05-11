@@ -24,7 +24,7 @@ class Registration(Resource):
 
         db.session.commit()
         
-        token = create_access_token(identity=user.id)
+        token = create_access_token(identity=user)
         return {"message": "ok", "access_token": token}
 
 
@@ -44,6 +44,6 @@ class Login(Resource):
         if not user.check_password(password):
             return {"message": "Wrong password"}
         
-        token = create_access_token(identity=user.id)
+        token = create_access_token(identity=user)
 
         return {"access_token": token}
