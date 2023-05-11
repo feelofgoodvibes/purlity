@@ -1,6 +1,8 @@
 from flask import Flask
 from src.database import db, migrate
+from src.rest import api_blueprint
 from src.models import *
+from src.jwt import jwt_manager
 
 
 def create_app(config=None):
@@ -13,5 +15,8 @@ def create_app(config=None):
 
     db.init_app(app)
     migrate.init_app(app)
+    jwt_manager.init_app(app)
+
+    app.register_blueprint(api_blueprint, url_prefix="/api")
 
     return app
