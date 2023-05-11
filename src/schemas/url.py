@@ -2,6 +2,15 @@ from typing import Optional
 from pydantic import BaseModel, validator
 from dateutil.parser import parse as parse_date
 
+
+class URL(BaseModel):
+    short_url: str
+    url: str
+
+    class Config:
+        orm_mode = True
+
+
 class URLFilters(BaseModel):
     user: Optional[int]
     date_from: Optional[str]

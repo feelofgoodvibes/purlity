@@ -5,7 +5,7 @@ from typing import Optional
 from src.models import URL
 from src.database import SQLAlchemy
 from src.service.user import UserService
-from src.schemas import URLFilters
+from src.schemas.url import URLFilters
 
 
 class URLService():
