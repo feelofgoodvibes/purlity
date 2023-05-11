@@ -1,7 +1,7 @@
 from werkzeug.security import generate_password_hash, check_password_hash
 from src.models import User
 from src.database import SQLAlchemy
-from typing import Union
+from typing import Optional
 
 
 class UserService():
@@ -18,8 +18,14 @@ class UserService():
             raise ValueError(f"User-{user_id} not found!")
 
         return user
+    
+    def get_user_by_username(self, username: str) -> Optional[User]:
+        return User.query.filter(User.username==username).first()
 
     def create_user(self, username: str, password: str) -> User:
+        if self.get_user_by_username(username) is not None:
+            raise ValueError(f"User with username {username} already exists!")
+
         new_user = User(username=username, password=generate_password_hash(password))
         self.db.session.add(new_user)
 
