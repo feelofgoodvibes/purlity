@@ -1,5 +1,6 @@
 from flask import Flask
-from src.database import db
+from src.database import db, migrate
+from src.models import *
 
 
 def create_app(config=None):
@@ -11,5 +12,6 @@ def create_app(config=None):
         app.config.from_object(config)
 
     db.init_app(app)
+    migrate.init_app(app)
 
     return app
