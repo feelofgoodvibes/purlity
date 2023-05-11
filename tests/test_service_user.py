@@ -1,5 +1,5 @@
 import pytest
-from tests.fixtures import dummy_db, user_service
+from tests.fixtures import test_app, dummy_db, user_service
 
 from src.service.user import UserService
 from src.models import User, URL, Visit

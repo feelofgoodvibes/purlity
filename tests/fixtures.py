@@ -8,11 +8,15 @@ from src.service.url import URLService
 from src.service.visit import VisitService
 
 
-@pytest.fixture()
-def dummy_db():
+@pytest.fixture
+def test_app():
     app = create_app("src.app_configuration.TestConfig")
-    
-    with app.app_context():
+    yield app
+
+
+@pytest.fixture
+def dummy_db(test_app):
+    with test_app.app_context():
         # Create all tables
         db.create_all()
 
@@ -59,19 +63,24 @@ def dummy_db():
         db.drop_all()   # Dropping all tables after object used
 
 
-@pytest.fixture()
+@pytest.fixture
+def test_client(dummy_db, test_app):
+    yield test_app.test_client()
+
+
+@pytest.fixture
 def user_service(dummy_db) -> UserService:
     service = UserService(dummy_db)
     yield service
 
 
-@pytest.fixture()
+@pytest.fixture
 def url_service(dummy_db) -> URLService:
     service = URLService(dummy_db)
     yield service
 
 
-@pytest.fixture()
+@pytest.fixture
 def visit_service(dummy_db) -> VisitService:
     service = VisitService(dummy_db)
     yield service

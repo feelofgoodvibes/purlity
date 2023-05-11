@@ -1,7 +1,7 @@
 from datetime import datetime
 import pytest
 
-from tests.fixtures import dummy_db, visit_service
+from tests.fixtures import test_app, dummy_db, visit_service
 from src.service.visit import VisitService
 
 

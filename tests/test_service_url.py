@@ -1,9 +1,9 @@
 import pytest
-from tests.fixtures import dummy_db, url_service
+from tests.fixtures import test_app, dummy_db, url_service
 
 from src.models import User, URL, Visit
 from src.service.url import URLService
-from src.schemas import URLFilters
+from src.schemas.url import URLFilters
 
 
 def test_url_get(url_service: URLService):
