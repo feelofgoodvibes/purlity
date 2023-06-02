@@ -13,10 +13,15 @@ class VisitService():
         
         return visit
 
-    def get_all_visits(self):
-        return Visit.query.all()
+    def get_all_visits(self, short_url: str = None) -> list[Visit]:
+        visits = Visit.query
 
-    def create_visit(self, short_url: str):
+        if short_url:
+            visits = visits.filter(Visit.short_url==short_url)
+
+        return visits.all()
+
+    def create_visit(self, short_url: str) -> Visit:
         visit = Visit(short_url=short_url)
         self.db.session.add(visit)
 
