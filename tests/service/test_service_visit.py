@@ -15,6 +15,9 @@ def test_visit_get(visit_service: VisitService):
 def test_visit_get_all(visit_service: VisitService):
     assert len(visit_service.get_all_visits()) == 16
 
+def test_visit_get_filtered(visit_service: VisitService):
+    assert len(visit_service.get_all_visits(short_url='exMpL')) == 4
+
 def test_visit_create(visit_service: VisitService):
     visit = visit_service.create_visit(short_url="gitHB")
 
