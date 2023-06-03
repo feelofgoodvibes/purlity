@@ -3,10 +3,12 @@ from src.database import db, migrate
 from src.rest import api_blueprint
 from src.models import *
 from src.jwt import jwt_manager
+from src.app_configuration import OrJSONProvider
 
 
 def create_app(config=None):
     app = Flask(__name__)
+    app.json = OrJSONProvider(app)
 
     if config is None:
         app.config.from_object("src.app_configuration.Config")
