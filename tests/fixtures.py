@@ -1,3 +1,4 @@
+from typing import TYPE_CHECKING
 from datetime import datetime
 import pytest
 
@@ -6,16 +7,22 @@ from src.models import User, URL, Visit
 from src.service.user import UserService
 from src.service.url import URLService
 from src.service.visit import VisitService
+from src.rest.authentication import UserService
+
+if TYPE_CHECKING:
+    from flask import Flask
+    from flask.testing import FlaskClient
+    from flask_sqlalchemy import SQLAlchemy
 
 
 @pytest.fixture
-def test_app():
+def test_app() -> "Flask":
     app = create_app("src.app_configuration.TestConfig")
     yield app
 
 
 @pytest.fixture
-def dummy_db(test_app):
+def dummy_db(test_app: "Flask") -> "SQLAlchemy":
     with test_app.app_context():
         # Create all tables
         db.create_all()
@@ -64,23 +71,32 @@ def dummy_db(test_app):
 
 
 @pytest.fixture
-def test_client(dummy_db, test_app):
+def test_client(dummy_db: "SQLAlchemy", test_app: "Flask") -> "FlaskClient":
     yield test_app.test_client()
 
 
 @pytest.fixture
-def user_service(dummy_db) -> UserService:
+def test_jwt(dummy_db: "SQLAlchemy", test_client: "FlaskClient", monkeypatch) -> str:
+    # Mocking check_password return type to True to avoid password checking
+    # so we can login to any account using any password
+    monkeypatch.setattr("src.models.User.check_password", lambda a, b: True)
+    login_response = test_client.post("/api/login", data={"username": "Max", "password": "test"})
+    return "Bearer " + login_response.json["access_token"]
+
+
+@pytest.fixture
+def user_service(dummy_db: "SQLAlchemy") -> UserService:
     service = UserService(dummy_db)
     yield service
 
 
 @pytest.fixture
-def url_service(dummy_db) -> URLService:
+def url_service(dummy_db: "SQLAlchemy") -> URLService:
     service = URLService(dummy_db)
     yield service
 
 
 @pytest.fixture
-def visit_service(dummy_db) -> VisitService:
+def visit_service(dummy_db: "SQLAlchemy") -> VisitService:
     service = VisitService(dummy_db)
     yield service
