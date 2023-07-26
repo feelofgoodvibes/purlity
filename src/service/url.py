@@ -57,7 +57,7 @@ class URLService():
 
         return url
 
-    def create_url(self, user_id: int, url: str) -> URL:
+    def create_url(self, user_id: Optional[int], url: str) -> URL:
         short_url = self.generate_short_url()
 
         new_url = URL(short_url=short_url, user_id=user_id, url=url)
