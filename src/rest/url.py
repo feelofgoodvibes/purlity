@@ -16,7 +16,7 @@ class URL(Resource):
         try:
             url = self.url_service.get_url(short_url)
         except ValueError as e:
-            return {"error": str(e)}
+            return {"msg": str(e)}
         
         if current_user is None:
             return jsonify(url_schemas.URL.from_orm(url).dict())
@@ -24,3 +24,20 @@ class URL(Resource):
             return jsonify(url_schemas.URLAuthenticated.from_orm(url).dict())
 
 
+    @jwt_required()
+    def delete(self, short_url: str):
+        current_user = get_current_user()
+
+        try:
+            url = self.url_service.get_url(short_url)
+        except ValueError as e:
+            return {"msg": str(e)}
+
+        if url.user_id != current_user.id:
+            return {"msg": "Access denied"}, 403
+
+        deleted_url = self.url_service.delete_url(short_url)        
+        db.session.commit()
+
+        return jsonify({"message": "deleted",
+                        "url": url_schemas.URLAuthenticated.from_orm(deleted_url).dict()})
