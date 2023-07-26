@@ -1,14 +1,30 @@
-from typing import Optional
+from typing import Optional, Union
 from pydantic import BaseModel, validator
 from dateutil.parser import parse as parse_date
+from src.models import Visit
+from datetime import datetime
 
 
 class URL(BaseModel):
+    user_id: Union[int, None]
     short_url: str
     url: str
+    created_date: datetime
 
     class Config:
         orm_mode = True
+
+
+class URLAuthenticated(URL):
+    visits: list[Visit]
+
+    @validator('visits')
+    def visits_unpacker(cls, v):
+        return [visit.date for visit in v]
+
+    class Config:
+        orm_mode = True
+        arbitrary_types_allowed = True
 
 
 class URLFilters(BaseModel):
