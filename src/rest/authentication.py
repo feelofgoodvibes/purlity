@@ -5,8 +5,13 @@ from src.service.user import UserService
 from src.database import db
 
 parser = reqparse.RequestParser()
-parser.add_argument('username', type=str, required=True, help='Username is required', location="form")
-parser.add_argument('password', type=str, required=True, help='Password is required', location="form")
+parser.add_argument('username', type=str, required=True,
+                    help='Username is required',
+                    location="form")
+
+parser.add_argument('password', type=str, required=True,
+                    help='Password is required',
+                    location="form")
 
 
 class Registration(Resource):
