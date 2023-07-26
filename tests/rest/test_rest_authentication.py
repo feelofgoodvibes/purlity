@@ -1,5 +1,6 @@
 from tests.fixtures import test_app, dummy_db, test_client
 
+
 def test_authentication_process(test_client):
     user_data =  {"username": "test_username", "password": "test_password"}
 
