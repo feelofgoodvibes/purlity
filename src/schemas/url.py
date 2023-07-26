@@ -6,7 +6,6 @@ from datetime import datetime
 
 
 class URL(BaseModel):
-    user_id: Union[int, None]
     short_url: str
     url: str
     created_date: datetime
@@ -16,6 +15,7 @@ class URL(BaseModel):
 
 
 class URLAuthenticated(URL):
+    user_id: int
     visits: list[Visit]
 
     @validator('visits')
