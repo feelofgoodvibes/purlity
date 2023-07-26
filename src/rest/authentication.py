@@ -25,12 +25,12 @@ class Registration(Resource):
         try:
             user = self.user_service.create_user(username, password)
         except ValueError as e:
-            return {"message": str(e)}
+            return {"msg": str(e)}
 
         db.session.commit()
         
         token = create_access_token(identity=user)
-        return {"message": "ok", "access_token": token}
+        return {"msg": "ok", "access_token": token}
 
 
 class Login(Resource):
@@ -44,10 +44,10 @@ class Login(Resource):
         user = self.user_service.get_user_by_username(username)
         
         if user is None:
-            return {"message": "User does not exist"}
+            return {"msg": "User does not exist"}
         
         if not user.check_password(password):
-            return {"message": "Wrong password"}
+            return {"msg": "Wrong password"}
         
         token = create_access_token(identity=user)
 
