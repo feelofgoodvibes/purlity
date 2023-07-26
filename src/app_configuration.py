@@ -1,7 +1,7 @@
-from flask.json.provider import JSONProvider
-from pydantic import BaseModel
-import orjson
 from datetime import datetime
+from pydantic import BaseModel
+from flask.json.provider import JSONProvider
+import orjson
 
 
 class Config:
