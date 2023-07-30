@@ -1,0 +1,263 @@
+@font-face {
+    font-family: 'Rounded';
+    src: url('../simply_rounded/SimplyRounded.ttf');
+}
+
+@font-face {
+    font-family: 'Rounded';
+    src: url('../simply_rounded/SimplyRoundedBold.ttf');
+    font-weight: bold;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active{
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: var(--color-c1);
+    transition: background-color 5000s ease-in-out 0s;
+    box-shadow: inset 0 0 20px 20px #23232329;
+}
+
+:root {
+    --color-c1: #FF69B4;
+    --color-c1-dim: #ff69b473;
+    --color-c2: #121C5E;
+    --color-txt: #e5e5e5;
+
+    --color-link1: var(--color-c1);
+    --color-link2: var(--color-c2);
+}
+
+a {
+    color: var(--color-link1);
+    transition: .3s;
+}
+
+a.darklink {
+    color: var(--color-link2);
+    transition: .3s;
+}
+
+a:hover {
+    color: hsl(300, 100%, 92%);
+    transition: .3s;
+}
+
+input {
+    width: 100%;
+    background-color: var(--color-c2);
+    color: var(--color-c1);
+    border: 5px solid var(--color-c1);
+    font: inherit;
+    padding: 10px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+}
+
+input:focus {
+    outline: none;
+    background-color: var(--color-c1-dim);
+}
+
+input::placeholder{
+    color: var(--color-c1-dim);
+}
+
+button {
+    color: var(--color-c2);
+    border: none;
+    font: inherit;
+    width: 100%;
+    padding: 10px;
+    transition: .3s;
+    background-color: var(--color-c1);
+}
+
+button:hover {
+    background-color: hsl(300, 100%, 92%);
+    color: rgb(0, 0, 0);
+    transition: .3s;
+    cursor: pointer;
+}
+
+/* * { border: 1px solid greenyellow; } */
+
+body {
+    background-color: var(--color-c2);
+    color: var(--color-c1);
+    font-size: 25px;
+    font-family: 'Rounded';
+    margin: 0;
+    padding: 0;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+#land-greet {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+    justify-content: center;
+    width: fit-content;
+}
+
+.title1 {
+    font-size: 100px;
+}
+
+.title2 {
+    font-size: 75px;
+}
+
+.title3 {
+    font-size: 50px;
+}
+
+.title4 {
+    font-size: 30px;
+}
+
+.text1 {
+    font-size: 25px;
+}
+
+.text2 {
+    font-size: 20px;
+}
+
+#land-phrase {
+    font-size: 30px;
+}
+
+#land-link {
+    width: 100%;
+    margin: 10px;
+}
+
+#header {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    background-color: var(--color-c1);
+    color: var(--color-c2);
+
+    display: flex;
+    flex-direction: row;
+
+    width: 100%;
+    border-bottom: 20px solid var(--color-c2);
+}
+
+#header-left {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+}
+
+#header-right {
+    flex: 5;
+}
+
+#header-auth {
+    float: right;
+}
+
+#authform {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+}
+
+.button-dark {
+    background-color: var(--color-c2);
+    color: var(--color-c1);
+    margin: 8px;
+    padding: 10px 20px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 10px;
+}
+
+.nosel {
+    user-select: none;
+}
+
+#content {
+    display: flex;
+    flex-direction: column;
+    /* flex-wrap: wrap; */
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+#content > *:first-child {
+    height: 80vh;
+}
+
+#links-list {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+
+.centertext {
+    text-align: center;
+}
+
+.invert {
+    background-color: var(--color-c1);
+    color: var(--color-c2);
+}
+
+#links-list-table {
+    display: table;
+    border-collapse: collapse;
+    color: var(--color-txt);
+    margin: 20px;
+}
+
+#links-list-table > div {
+    display: table-row;
+}
+
+#links-list-table > div > * {
+    display: table-cell;
+    padding: 20px;
+    border: 4px solid var(--color-c1);
+    font-size: 17px;
+}
+
+.link-card {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    border: 3px solid var(--color-c1);
+    padding: 20px;
+}
+
+.txt {
+    color: var(--color-txt) !important;
+}
+
+#server-messages {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+#server-messages > * {
+    background-color: #000;
+    color: #fff;
+    border: 4px solid #fff;
+}
