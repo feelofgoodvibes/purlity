@@ -19,5 +19,6 @@ webapp_blueprint.add_url_rule("/register", view_func=register)
 @webapp_blueprint.route("/")
 @jwt_required(optional=True)
 def index():
+    flash('test')
     user = get_current_user()
     return render_template("index.html", user=user)
