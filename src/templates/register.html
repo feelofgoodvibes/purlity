@@ -1,12 +1,13 @@
 {% extends 'base.html' %}
 
 {% block head %}
+<script src="{{ url_for('static', filename='js/auth.js') }}"></script>
 <title>registration | purlity</title>
 {% endblock %}
 
 {% block body %}
 <div id="content">
-    <div id="authform">
+    <div id="authform" type="registration">
         <span class="title3">Hello, stranger!👋</span>
         <input type="text" name="username" placeholder="username">
         <input type="password" name="password" placeholder="password">
