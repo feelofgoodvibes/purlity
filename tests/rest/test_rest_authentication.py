@@ -39,3 +39,15 @@ def test_authentication_errors(test_client):
     nonexisting_response = test_client.post("/api/login", data={"username": "123", "password": "123"})
     assert nonexisting_response.json["msg"] == "User does not exist"
     assert nonexisting_response.status_code == 404
+
+    register_username_too_long_response = test_client.post("/api/register", data={"username": "test"*32, "password": "testpassword"})
+    assert register_username_too_long_response.status_code == 400
+    assert register_username_too_long_response.json["msg"].startswith("Username or password too long")
+
+    register_password_too_long_response = test_client.post("/api/register", data={"username": "test", "password": "testpassword"*32})
+    assert register_password_too_long_response.status_code == 400
+    assert register_password_too_long_response.json["msg"].startswith("Username or password too long")
+
+    login_username_too_long_response = test_client.post("/api/login", data={"username": "test"*32, "password": "testpassword"})
+    assert login_username_too_long_response.status_code == 400
+    assert login_username_too_long_response.json["msg"].startswith("Username or password too long")

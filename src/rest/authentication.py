@@ -22,6 +22,10 @@ class Registration(Resource):
 
         username, password = args["username"], args["password"]
 
+        # Validation
+        if len(username) > 32 or len(password) > 32:
+            return {"msg": "Username or password too long (max 32 characters)"}, 400
+
         try:
             user = self.user_service.create_user(username, password)
         except ValueError as e:
@@ -40,6 +44,10 @@ class Login(Resource):
         args = parser.parse_args(req=request)
 
         username, password = args["username"], args["password"]
+
+        # Validation
+        if len(username) > 32 or len(password) > 32:
+            return {"msg": "Username or password too long (max 32 characters)"}, 400
 
         user = self.user_service.get_user_by_username(username)
         
