@@ -8,8 +8,8 @@ from src.rest.url_collection import URL_collection
 api_blueprint = Blueprint("api", __name__)
 
 api = Api()
-api.add_resource(Registration, "/register")
-api.add_resource(Login, "/login")
+api.add_resource(Registration, "/register", endpoint='register')
+api.add_resource(Login, "/login", endpoint='login')
 api.add_resource(URL_collection, '/url')
 api.add_resource(URL, '/url/<string:short_url>')
 

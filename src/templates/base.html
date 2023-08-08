@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
     <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/notify.min.js') }}"></script>
     {% block head %}
     {% endblock %}
 </head>
@@ -18,6 +19,11 @@
     {% block body %}
     {% endblock %}
 
-    {% include 'messages.html' %}
+    <script>
+        var urls = {
+            login: "{{ url_for('api.login') }}",
+            register: "{{ url_for('api.register') }}"
+        }
+    </script>
 </body>
 </html>
