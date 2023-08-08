@@ -9,6 +9,7 @@ class Config:
     SQLALCHEMY_DATABASE_URI = "sqlite:///db.db"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     JWT_ACCESS_COOKIE_NAME = "access_token"
+    JWT_TOKEN_LOCATION = ["headers", "cookies"]
 
 
 class TestConfig:
@@ -17,6 +18,7 @@ class TestConfig:
     SQLALCHEMY_DATABASE_URI = "sqlite:///:memory:"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     JWT_ACCESS_COOKIE_NAME = "access_token"
+    JWT_TOKEN_LOCATION = ["headers", "cookies"]
 
 
 class OrJSONProvider(JSONProvider):
