@@ -11,8 +11,8 @@
         <span class="title3">Welcome back! 👐</span>
         <input type="text" name="username" placeholder="username">
         <input type="password" name="password" placeholder="password">
-        <button>register</button>
-        <span class="text2">We are already friends? <a href="login.html">Log in</a> then!</span>
+        <button id="authform-submit">log in</button>
+        <span class="text2">New here? Try <a href="{{ url_for('webapp.register') }}">register</a> first!</span>
     </div>
 </div>
 {% endblock %}
