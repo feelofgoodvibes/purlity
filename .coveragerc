@@ -4,3 +4,6 @@ omit =
         run.py
         src/app.py
         src/app_configuration.py
+        src/views/*
+        test.py
+        tests/*
