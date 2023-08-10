@@ -1,6 +1,6 @@
 from flask import request, jsonify
 from flask_restful import Resource, reqparse
-from flask_jwt_extended import create_access_token, set_access_cookies
+from flask_jwt_extended import create_access_token, set_access_cookies, unset_jwt_cookies
 from src.service.user import UserService
 from src.database import db
 
@@ -61,5 +61,15 @@ class Login(Resource):
 
         response = jsonify({"access_token": token})
         set_access_cookies(response, token)
+
+        return response
+
+
+class Logout(Resource):
+    user_service = UserService(db)
+
+    def post(self):
+        response = jsonify({"msg": "ok"})
+        unset_jwt_cookies(response)
 
         return response

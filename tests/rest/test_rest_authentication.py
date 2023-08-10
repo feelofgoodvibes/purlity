@@ -51,3 +51,13 @@ def test_authentication_errors(test_client):
     login_username_too_long_response = test_client.post("/api/login", data={"username": "test"*32, "password": "testpassword"})
     assert login_username_too_long_response.status_code == 400
     assert login_username_too_long_response.json["msg"].startswith("Username or password too long")
+
+
+def test_logout(test_client, monkeypatch):
+    monkeypatch.setattr("src.models.User.check_password", lambda a, b: True)
+    login_response = test_client.post("/api/login", data={"username": "Max", "password": "test"})
+    assert "access_token" in login_response.json
+
+    assert test_client.get_cookie("access_token") is not None
+    test_client.post("/api/logout")
+    assert test_client.get_cookie("access_token") is None

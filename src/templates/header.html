@@ -5,9 +5,13 @@
 
     <div id="header-right">
         <div id="header-auth" class="button-dark">
-            <a href="{{ url_for('webapp.login') }}">log in</a>
-            <span class="nosel">|</span>
-            <a href="{{ url_for('webapp.register') }}">register</a>
+            {% if user %}
+                <a id="logout-btn" href="#">logout from {{ user.username }}</a>
+            {% else %}
+                <a href="{{ url_for('webapp.login') }}">log in</a>
+                <span class="nosel">|</span>
+                <a href="{{ url_for('webapp.register') }}">register</a>
+            {% endif %}
         </div>
     </div>
 </div>
