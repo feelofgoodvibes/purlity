@@ -1,6 +1,7 @@
 from random import choice
 from string import ascii_letters
 from typing import Optional
+import validators
 
 from src.models import URL
 from src.database import SQLAlchemy
@@ -58,6 +59,11 @@ class URLService():
         return url
 
     def create_url(self, user_id: Optional[int], url: str) -> URL:
+        url_validate = validators.url(url)
+
+        if not url_validate:
+            raise ValueError("URL validation failed. Check if your URL is correct.")
+
         short_url = self.generate_short_url()
 
         new_url = URL(short_url=short_url, user_id=user_id, url=url)

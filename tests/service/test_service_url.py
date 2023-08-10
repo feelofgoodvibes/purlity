@@ -59,6 +59,10 @@ def test_create_url(url_service: URLService, monkeypatch):
     assert url.url == "http://test2.com"
     assert url.user.username == "Kevin"
 
+    with pytest.raises(ValueError):
+        url_service.create_url(user_id=2, url="ttps://t.com")
+        url_service.create_url(user_id=2, url="testfailure")
+
 
 def test_delete_url(url_service: URLService):
     url_service.delete_url("gitHB")
