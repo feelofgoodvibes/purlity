@@ -1,10 +1,12 @@
 from tests.fixtures import dummy_db, test_app, test_client, test_jwt
 
 
-def test_url_collection_get(test_client, test_jwt):
+def test_url_collection_get_unauth(test_client):
     get_unauth = test_client.get("/api/url")
-    assert "msg" in get_unauth.json and get_unauth.json["msg"] == "Missing Authorization Header"
+    assert "msg" in get_unauth.json and "Missing JWT" in get_unauth.json["msg"]
 
+
+def test_url_collection_get(test_client, test_jwt):
     get_auth = test_client.get("/api/url", headers={"Authorization": test_jwt})
     assert len(get_auth.json) == 2 and get_auth.json[0]["url"] == "http://example.com"
 
@@ -25,18 +27,19 @@ def test_url_creation(test_client, test_jwt):
     assert len(check_after.json) - len(check_before.json) == 1
 
 def test_url_get(test_client, test_jwt):
-    get_noauth = test_client.get("/api/url/pyThN")
-    assert "visits" not in get_noauth.json
-
     get_auth = test_client.get("/api/url/pyThN", headers={"Authorization": test_jwt})
     assert "visits" in get_auth.json
 
     get_invalid = test_client.get("/api/url/xxXXxx")
     assert "msg" in get_invalid.json and get_invalid.json["msg"].endswith("not found!")
 
+    test_client.set_cookie("access_token", "")
+    get_noauth = test_client.get("/api/url/pyThN")
+    assert "visits" not in get_noauth.json
+
 def test_url_delete(test_client, test_jwt):
     delete_unauth = test_client.delete("/api/url/pyThN")
-    assert "msg" in delete_unauth.json and delete_unauth.json["msg"] == "Missing Authorization Header"
+    assert "msg" in delete_unauth.json and delete_unauth.json["msg"] == "Access denied"
 
     delete_auth_forbidden = test_client.delete("/api/url/pyThN", headers={"Authorization": test_jwt})
     assert "msg" in delete_auth_forbidden.json and delete_auth_forbidden.json["msg"] == "Access denied"

@@ -10,6 +10,7 @@ class Config:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     JWT_ACCESS_COOKIE_NAME = "access_token"
     JWT_TOKEN_LOCATION = ["headers", "cookies"]
+    JWT_COOKIE_CSRF_PROTECT = False
 
 
 class TestConfig:
@@ -19,6 +20,7 @@ class TestConfig:
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     JWT_ACCESS_COOKIE_NAME = "access_token"
     JWT_TOKEN_LOCATION = ["headers", "cookies"]
+    JWT_COOKIE_CSRF_PROTECT = False
 
 
 class OrJSONProvider(JSONProvider):
