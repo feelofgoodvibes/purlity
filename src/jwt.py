@@ -1,4 +1,5 @@
-from flask_jwt_extended import JWTManager
+from flask import redirect, url_for
+from flask_jwt_extended import JWTManager, unset_jwt_cookies
 from src.database import db
 from src.service.user import UserService
 
@@ -15,3 +16,10 @@ def user_identity_loader(user):
 def user_lookup_loader(_jwt_header, jwt_data):
     identity = jwt_data["sub"]
     return user_service.get_user(identity)
+
+
+@jwt_manager.expired_token_loader
+def token_expired(_jwt_header, jwt_data):
+    response = redirect(url_for("webapp.index"))
+    unset_jwt_cookies(response)
+    return response
