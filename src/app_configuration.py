@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timedelta
 from pydantic import BaseModel
 from flask.json.provider import JSONProvider
 import orjson
@@ -11,6 +11,7 @@ class Config:
     JWT_ACCESS_COOKIE_NAME = "access_token"
     JWT_TOKEN_LOCATION = ["headers", "cookies"]
     JWT_COOKIE_CSRF_PROTECT = False
+    JWT_ACCESS_TOKEN_EXPIRES = timedelta(hours=3)
 
 
 class TestConfig:
@@ -21,6 +22,7 @@ class TestConfig:
     JWT_ACCESS_COOKIE_NAME = "access_token"
     JWT_TOKEN_LOCATION = ["headers", "cookies"]
     JWT_COOKIE_CSRF_PROTECT = False
+    JWT_ACCESS_TOKEN_EXPIRES = timedelta(hours=3)
 
 
 class OrJSONProvider(JSONProvider):
