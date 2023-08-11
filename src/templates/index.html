@@ -13,5 +13,33 @@
         <input id="land-link" type="text" placeholder="Enter your link...">
         <button>purify</button>
     </div>
+
+    {% if user %}
+    <div id="links-list">
+        <span style="width: 100%; border-bottom: 4px solid var(--color-c1);">your links</span>
+
+        <div id="links-list-table">
+            <div>
+                <span>Short URL</span>
+                <span>URL</span>
+                <span>Date</span>
+                <span>Visits</span>
+            </div>
+
+            {% for url in urls %}
+            <div>
+                <span>{{ url.short_url }}</span>
+                {% if url.url | length < 70 %}
+                    <span>{{ url.url }}</span>
+                {% else %}
+                    <span>{{ url.url[:33] + '...' + url.url[-32:] }}</span>
+                {% endif %}
+                <span>{{ url.created_date }}</span>
+                <span>{{ url.visits | length }}</span>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
 </div>
 {% endblock %}
