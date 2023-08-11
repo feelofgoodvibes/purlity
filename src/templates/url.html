@@ -6,6 +6,17 @@
 
 {% block body %}
 <div id="content">
-    {{ url }}
+    <div id="short_url_info">
+        <span>Short URL: <span class="text-light">{{ url.short_url }}</span><i data-shorturl="{{ url.short_url }}" class="feather-ico feather-ico-pad" data-feather="copy"></i></span>
+        <span>Original URL: <span class="text-light"><a href="{{ url.url }}">{{ url.url }}</a></span></span>
+        <span>Created date: <span class="text-light">{{ url.created_date.strftime("%X %x") }}</span></span>
+        <hr style="width: 100%;">
+        <span>Visits: {{ url.visits | length }}</span>
+        <ul>
+            {% for visit in url.visits %}
+            <li>{{ visit.date.strftime("%X %x") }}</li>
+            {% endfor %}
+        </ul>
+    </div>
 </div>
 {% endblock %}
