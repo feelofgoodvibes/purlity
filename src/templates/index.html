@@ -28,16 +28,16 @@
             </div>
 
             {% for url in urls %}
-            <div data-shorturl="{{ url.short_url }}">
-                <span><a href="/{{ url.short_url }}">{{ url.short_url }}</a><i class="feather-ico feather-ico-pad" data-feather="copy"></i></span>
+            <div>
+                <span><a href="/{{ url.short_url }}">{{ url.short_url }}</a><i data-shorturl="{{ url.short_url }}" class="feather-ico feather-ico-pad" data-feather="copy"></i></span>
                 {% if url.url | length < 70 %}
-                    <span><a href="{{ url.url }}">{{ url.url }}</a><i data-feather="copy"></i></span>
+                    <span><a href="{{ url.url }}">{{ url.url }}</a><i data-shorturl="{{ url.url }}" data-feather="copy"></i></span>
                 {% else %}
                     <span><a href="{{ url.url }}">{{ url.url[:33] + '...' + url.url[-32:] }}</a></span>
                 {% endif %}
                 <span>{{ url.created_date.strftime("%X %x") if url.created_date else '-' }}</span>
                 <span>{{ url.visits | length }}</span>
-                <span><i class="feather-ico" data-feather="trash-2"></i></span>
+                <span><i data-shorturl="{{ url.short_url }}" class="feather-ico" data-feather="trash-2"></i></span>
             </div>
             {% endfor %}
         </div>

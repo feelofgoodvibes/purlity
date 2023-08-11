@@ -28,7 +28,7 @@ window.addEventListener("load", () => {
                     "url": url
                 },
                 success: (resp) => {
-                    console.log(resp);
+                    location.href = "/" + resp.short_url;
                 },
                 error: (resp) => {
                     $.notify(resp.responseJSON.msg, "error");
@@ -37,8 +37,8 @@ window.addEventListener("load", () => {
         });
     }
 
-    for (let item of document.getElementById("links-list-table").getElementsByClassName("feather-copy")){
-        let short_url = item.parentElement.parentElement.getAttribute("data-shorturl");
+    for (let item of document.getElementsByClassName("feather-copy")){
+        let short_url = item.getAttribute("data-shorturl");
         $(item).on("click", async () => {
             await navigator.clipboard.writeText(location.origin + "/v/" + short_url);
             $(item).notify("Copied to clipboard!", {"className": "success", "autoHideDelay": 2000 });
@@ -46,7 +46,7 @@ window.addEventListener("load", () => {
     }
 
     for (let item of document.getElementById("links-list-table").getElementsByClassName("feather-trash-2")){
-        let short_url = item.parentElement.parentElement.getAttribute("data-shorturl");
+        let short_url = item.getAttribute("data-shorturl");
         $(item).on("click", () => {
             $.ajax({
                 url: `${urls.api.urls}/${short_url}`,
