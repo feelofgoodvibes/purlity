@@ -19,6 +19,7 @@ def user_lookup_loader(_jwt_header, jwt_data):
 
 
 @jwt_manager.expired_token_loader
+@jwt_manager.token_verification_failed_loader
 def token_expired(_jwt_header, jwt_data):
     response = redirect(url_for("webapp.index"))
     unset_jwt_cookies(response)
