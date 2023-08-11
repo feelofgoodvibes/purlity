@@ -235,6 +235,9 @@ body {
     font-size: 17px;
     word-wrap: break-word;
     max-width: 450px;
+
+    text-align: center;
+    vertical-align: middle;
 }
 
 .link-card {
@@ -263,4 +266,13 @@ body {
     color: #fff;
     border: 4px solid #fff;
     padding: 5px 20px;
+}
+
+.feather-ico {
+    width: 19px;
+    height: 19px;
+}
+
+.feather-ico-pad {
+    margin-left: 5px;
 }
