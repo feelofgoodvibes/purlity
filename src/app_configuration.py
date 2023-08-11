@@ -1,11 +1,14 @@
+import os
 from datetime import datetime, timedelta
+import orjson
+import dotenv
 from pydantic import BaseModel
 from flask.json.provider import JSONProvider
-import orjson
 
+dotenv.load_dotenv(dotenv.find_dotenv())
 
 class Config:
-    SECRET_KEY = '0d99f6a17b6548608f5b408725edeec0jjiewu321oi54jos'
+    SECRET_KEY = os.environ.get("SECRET_KEY")
     SQLALCHEMY_DATABASE_URI = "sqlite:///db.db"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     JWT_ACCESS_COOKIE_NAME = "access_token"
@@ -16,7 +19,7 @@ class Config:
 
 class TestConfig:
     TESTING = True
-    SECRET_KEY = '0d99f6a17b6548608f5b408725edeec0jjiewu321oi54jos'
+    SECRET_KEY = os.environ.get("SECRET_KEY")
     SQLALCHEMY_DATABASE_URI = "sqlite:///:memory:"
     SQLALCHEMY_TRACK_MODIFICATIONS = False
     JWT_ACCESS_COOKIE_NAME = "access_token"
