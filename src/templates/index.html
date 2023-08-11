@@ -11,7 +11,7 @@
         <div id="land-phrase">don't you want your link to look pure?</div>
 
         <input id="land-link" type="text" placeholder="Enter your link...">
-        <button>purify</button>
+        <button id="land-purify-btn">purify</button>
     </div>
 
     {% if user %}
@@ -28,13 +28,13 @@
 
             {% for url in urls %}
             <div>
-                <span>{{ url.short_url }}</span>
+                <span><a href="/{{ url.short_url }}">{{ url.short_url }}</a></span>
                 {% if url.url | length < 70 %}
-                    <span>{{ url.url }}</span>
+                    <span><a href="{{ url.url }}">{{ url.url }}</a></span>
                 {% else %}
-                    <span>{{ url.url[:33] + '...' + url.url[-32:] }}</span>
+                    <span><a href="{{ url.url }}">{{ url.url[:33] + '...' + url.url[-32:] }}</a></span>
                 {% endif %}
-                <span>{{ url.created_date }}</span>
+                <span>{{ url.created_date.strftime("%X %x") if url.created_date else '-' }}</span>
                 <span>{{ url.visits | length }}</span>
             </div>
             {% endfor %}
