@@ -16,4 +16,23 @@ window.addEventListener("load", () => {
             });
         })
     }
+
+    if ($("#land-purify-btn")) {
+        $("#land-purify-btn").on("click", () => {
+            let url = $("#land-link")[0].value;
+            $.ajax({
+                url: urls.api.urls,
+                method: "POST",
+                data: {
+                    "url": url
+                },
+                success: (resp) => {
+                    console.log(resp);
+                },
+                error: (resp) => {
+                    $.notify(resp.responseJSON.msg, "error");
+                }
+            })
+        });
+    }
 });
