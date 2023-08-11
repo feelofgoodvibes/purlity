@@ -31,7 +31,12 @@ class URL_collection(Resource):
         args = parser.parse_args(req=request)
 
         current_user = get_current_user()
-        created_url = self.url_service.create_url(user_id=current_user and current_user.id, url=args["url"])
+        
+        try:
+            created_url = self.url_service.create_url(user_id=current_user and current_user.id, url=args["url"])
+        except ValueError as e:
+            return {"msg": str(e)}, 400
+
 
         db.session.commit()
         return jsonify(url_schemas.URL.from_orm(created_url).dict())

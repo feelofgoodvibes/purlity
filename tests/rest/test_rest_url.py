@@ -26,6 +26,11 @@ def test_url_creation(test_client, test_jwt):
     assert create_auth.json["url"] == "https://hello2.com"
     assert len(check_after.json) - len(check_before.json) == 1
 
+def test_url_creation_wrong(test_client, test_jwt):
+    response = test_client.post("/api/url", headers={"Authorization": test_jwt}, data={"url": "tpps://wrongurl.com"})
+    assert response.status_code == 400
+    assert "msg" in response.json and "URL validation failed" in response.json["msg"]
+
 def test_url_get(test_client, test_jwt):
     get_auth = test_client.get("/api/url/pyThN", headers={"Authorization": test_jwt})
     assert "visits" in get_auth.json
