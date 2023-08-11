@@ -28,8 +28,8 @@
             </div>
 
             {% for url in urls %}
-            <div>
-                <span><a class="short_url" href="/{{ url.short_url }}">{{ url.short_url }}</a><i class="feather-ico feather-ico-pad" data-feather="copy"></i></span>
+            <div data-shorturl="{{ url.short_url }}">
+                <span><a href="/{{ url.short_url }}">{{ url.short_url }}</a><i class="feather-ico feather-ico-pad" data-feather="copy"></i></span>
                 {% if url.url | length < 70 %}
                     <span><a href="{{ url.url }}">{{ url.url }}</a><i data-feather="copy"></i></span>
                 {% else %}
