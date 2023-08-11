@@ -4,6 +4,7 @@ from src.service.url import URLService
 from src.schemas.url import URLFilters
 from src.database import db
 
+url_service = URLService(db)
 
 @jwt_required(optional=True)
 def index():
@@ -11,7 +12,6 @@ def index():
     urls = None
 
     if user is not None:
-        url_service = URLService(db)
         urls = url_service.get_all_urls(URLFilters(user=user.id))
 
     return render_template("index.html", user=user, urls=urls)
