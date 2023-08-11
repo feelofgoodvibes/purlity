@@ -1,4 +1,5 @@
 window.addEventListener("load", () => {
+    feather.replace();
     // Remove server messages after 5 seconds
     if (document.getElementById("server-messages")) { setInterval(() => { $("#server-messages").hide('slow', () => { $("#server-messages").remove() }) }, 5000); }
 
@@ -34,5 +35,14 @@ window.addEventListener("load", () => {
                 }
             })
         });
+    }
+
+    for (let item of document.getElementsByClassName("feather-copy")){
+        let href = item.parentElement.querySelector(".short_url").text;
+        $(item).on("click", async () => {
+            await navigator.clipboard.writeText(location.origin + "/v/" + href);
+            $(item).notify("Copied to clipboard!", {"className": "success", "autoHideDelay": 2000 });
+        });
+
     }
 });
