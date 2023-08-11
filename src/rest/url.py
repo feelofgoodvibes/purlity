@@ -31,7 +31,7 @@ class URL(Resource):
         try:
             url = self.url_service.get_url(short_url)
         except ValueError as e:
-            return {"msg": str(e)}
+            return {"msg": str(e)}, 404
 
         if url.user_id != current_user.id:
             return {"msg": "Access denied"}, 403
