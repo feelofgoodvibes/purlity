@@ -1,6 +1,7 @@
 import os
 from flask import Blueprint, render_template, flash
 from src.views.authentication import login, register
+from src.views.index import index
 from flask_jwt_extended import get_current_user, jwt_required
 
 
@@ -15,9 +16,4 @@ webapp_blueprint = Blueprint("webapp",
 
 webapp_blueprint.add_url_rule("/login", view_func=login)
 webapp_blueprint.add_url_rule("/register", view_func=register)
-
-@webapp_blueprint.route("/")
-@jwt_required(optional=True)
-def index():
-    user = get_current_user()
-    return render_template("index.html", user=user)
+webapp_blueprint.add_url_rule("/", view_func=index)
