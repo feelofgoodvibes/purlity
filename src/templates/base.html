@@ -23,7 +23,11 @@
         var urls = {
             login: "{{ url_for('api.login') }}",
             register: "{{ url_for('api.register') }}",
-            logout: "{{ url_for('api.logout') }}"
+            logout: "{{ url_for('api.logout') }}",
+            api: {
+                urls: "{{ url_for('api.urls') }}",
+                url: "{{ url_for('api.urls') }}"
+            }
         }
     </script>
 </body>
