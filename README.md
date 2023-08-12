@@ -44,8 +44,8 @@ There is endpoints that requires `access_token` in the header or cookies of the 
 ## How to build & run
 Before building, make sure you have python>=3.9 installed and configured. Also, It is recommended to build inside separate virtual environment:
 
-1. Clone repository (git clone https://github.com/feelofgoodvibes/purlity)
-2. Install dependencies (pip install -r requirements.txt)
+1. Clone repository (`git clone https://github.com/feelofgoodvibes/purlity`)
+2. Install dependencies (`pip install -r requirements.txt`)
 3. Create `.env` file, and define `SECRET_KEY='your-secret-key'` there
 4. Apply migrations to database:
   `flask --app src.app db upgrade`
