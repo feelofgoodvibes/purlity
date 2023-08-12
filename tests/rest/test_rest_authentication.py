@@ -1,4 +1,6 @@
 from tests.fixtures import test_app, dummy_db, test_client
+from flask_jwt_extended import create_access_token
+from datetime import timedelta
 
 
 def test_authentication_process(test_client):
@@ -59,3 +61,15 @@ def test_logout(test_client, monkeypatch):
     assert test_client.get_cookie("access_token") is not None
     test_client.post("/api/logout")
     assert test_client.get_cookie("access_token") is None
+
+def test_token_verification_fail(test_client, monkeypatch):
+    monkeypatch.setattr("src.models.User.check_password", lambda a, b: True)
+    monkeypatch.setattr("src.rest.authentication.create_access_token", lambda *kwargs, **args: create_access_token(args['identity'], expires_delta=timedelta(hours=-1)))
+    test_client.post("/api/login", data= {"username": "Max", "password": "test"})
+    
+    access_token_before = test_client.get_cookie("access_token")
+    response = test_client.get("/api/url")
+    access_token_after = test_client.get_cookie("access_token")
+
+    assert access_token_before is not None and access_token_after is None
+    assert response.json is None
