@@ -6,6 +6,8 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    env:
+      SECRET_KEY: 'PyEnCeRbnoLOhZ93grMBo3JmaUbWrUGS'
     strategy:
       matrix:
         python-version: ["3.9", "3.10"]
