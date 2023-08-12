@@ -7,10 +7,33 @@ from src.schemas import url as url_schemas
 
 
 class URL(Resource):
+    """
+    URL Resource
+    
+    Provides endpoints for retrieving and deleting individual URLs.
+
+    Methods:
+        get(self, short_url: str)
+            Handles GET requests for retrieving URL details.
+
+        delete(self, short_url: str)
+            Handles DELETE requests for deleting a URL.
+    """
+
     url_service = URLService(db)
 
     @jwt_required(optional=True)
     def get(self, short_url: str):
+        """
+        Handles retrieving details of a specific URL.
+
+        Args:
+            short_url (str): The short URL to retrieve details for.
+
+        Returns:
+            dict: A JSON response containing URL details based on the user's authentication status.
+        """
+
         current_user = get_current_user()
 
         try:
@@ -26,6 +49,19 @@ class URL(Resource):
 
     @jwt_required()
     def delete(self, short_url: str):
+        """
+        Handles the deletion of a specific URL.
+
+        Args:
+            short_url (str): The short URL to be deleted.
+
+        Returns:
+            dict: A JSON response indicating successful deletion of the URL.
+
+        Raises:
+            ValueError: If the URL does not exist or the user is not authorized to delete it.
+        """
+
         current_user = get_current_user()
 
         try:

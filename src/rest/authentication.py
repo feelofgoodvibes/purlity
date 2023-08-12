@@ -15,9 +15,31 @@ parser.add_argument('password', type=str, required=True,
 
 
 class Registration(Resource):
+    """
+    Registration Resource
+    
+    Provides an endpoint for user registration.
+
+    Methods:
+        `post(self)`
+            Handles POST requests for user registration.
+    """
+
     user_service = UserService(db)
 
     def post(self):
+        """
+        Handles user registration.
+        
+        This endpoint expects arguments as form data:
+            * username (str, max 32 characters)
+            * password (str, max 32 characters)
+
+        Returns HTTP codes and data:
+            200 return code, access_token - If user registration successful
+            400 return code, error msg - If password is incorrect or username, login is more than 32 characters
+        """
+
         args = parser.parse_args(req=request)
 
         username, password = args["username"], args["password"]
@@ -38,9 +60,32 @@ class Registration(Resource):
 
 
 class Login(Resource):
+    """
+    Login Resource
+    
+    Provides an endpoint for user login.
+
+    Methods:
+        `post(self)`
+            Handles POST requests for user login.
+    """
+
     user_service = UserService(db)
 
     def post(self):
+        """
+        Handles user login.
+        
+        This endpoint expects arguments as form data:
+            * username (str, max 32 characters)
+            * password (str, max 32 characters)
+
+        Returns HTTP codes and data:
+            200 return code, access_token - If user login successful
+            400 return code, error msg - If password is incorrect or username, login is more than 32 characters
+            404 return code, error msg - If user with provided username and password not found
+        """
+
         args = parser.parse_args(req=request)
 
         username, password = args["username"], args["password"]
@@ -66,9 +111,21 @@ class Login(Resource):
 
 
 class Logout(Resource):
+    """
+    Logout Resource
+    
+    Provides an endpoint for user logout.
+
+    Methods:
+        `post(self)`
+            Handles POST requests for user logout.
+    """
+
     user_service = UserService(db)
 
     def post(self):
+        """Handles user logout by clearing JWT cookies."""
+
         response = jsonify({"msg": "ok"})
         unset_jwt_cookies(response)
 

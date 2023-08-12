@@ -15,10 +15,30 @@ parser.add_argument("url",
 
 
 class URL_collection(Resource):
+    """
+    URL_collection Resource
+    
+    Provides endpoints for listing and creating URLs.
+
+    Methods:
+        get(self)
+            Handles GET requests for listing URLs.
+        
+        post(self)
+            Handles POST requests for creating a new URL.
+    """
+
     url_service = URLService(db)
 
     @jwt_required()
     def get(self):
+        """
+        Handles listing URLs associated with the authenticated user.
+
+        Returns:
+            list: A list of URL objects in dictionary format.
+        """
+
         current_user = get_current_user()
         filters = url_schemas.URLFilters.parse_obj(request.args)
         filters.user = current_user.id
@@ -28,6 +48,16 @@ class URL_collection(Resource):
 
     @jwt_required(optional=True)
     def post(self):
+        """
+        Handles the creation of a new URL.
+
+        Returns:
+            dict: A JSON response containing the newly created URL details.
+
+        Raises:
+            ValueError: If the URL creation fails.
+        """
+
         args = parser.parse_args(req=request)
 
         current_user = get_current_user()
